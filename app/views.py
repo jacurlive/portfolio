@@ -1,8 +1,12 @@
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
+
+from app.models import About
 
 
-class MainView(TemplateView):
+class MainView(ListView):
     template_name = 'index.html'
+    queryset = About.objects.first()
+    context_object_name = 'about'
 
 
 class InnerView(TemplateView):

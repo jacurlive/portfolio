@@ -1,4 +1,7 @@
-from django.db.models import Model, ImageField, CharField, IntegerField, BooleanField, TextField, URLField
+from django.db.models import Model, ImageField, CharField, IntegerField, BooleanField, TextField, URLField, EmailField, \
+    SlugField, ForeignKey, CASCADE, DateTimeField, ManyToManyField
+from django.utils.text import slugify
+from django_resized import ResizedImageField
 
 
 class About(Model):
@@ -10,7 +13,7 @@ class About(Model):
     city = CharField(max_length=200, default='Tashkent, UZB')
     age = IntegerField(default=17)
     degree = CharField(max_length=100, default='Junior')
-    email = CharField(max_length=300, default='jasurkkirchh@gmail.com')
+    email = EmailField(max_length=300, default='jasurkkirchh@gmail.com')
     freelance = BooleanField(default=True)
     description = TextField()
     instagram_link = URLField(null=True)
@@ -18,3 +21,83 @@ class About(Model):
     twitter_link = URLField(null=True)
     linkedin_link = URLField(null=True)
 
+
+class Skill(Model):
+    name = CharField(max_length=255)
+    percent = IntegerField()
+
+
+class Sumary(Model):
+    full_name = CharField(max_length=300, default='Jasur Juraev')
+    description = TextField()
+    city = CharField(max_length=200, default='Tashkent, Uzbekistan')
+    phone = CharField(max_length=200, default='+998 (94) 800 2005')
+    email = EmailField(max_length=300, default='jasurkkirchh@gmail.com')
+
+
+class Education(Model):
+    title = CharField(max_length=200)
+    year = CharField(max_length=155)
+    place = CharField(max_length=300)
+    description = TextField()
+
+
+class Category(Model):
+    name = CharField(max_length=255)
+    slug = SlugField(max_length=255, unique=True)
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        while Category.objects.filter(slug=self.slug).exists():
+            slug = Category.objects.filter(slug=self.slug).first().slug
+            if '-' in slug:
+                try:
+                    if slug.split('-')[-1] in self.name:
+                        self.slug += '-1'
+                    else:
+                        self.slug = '-'.join(slug.split('-')[:-1]) + '-' + str(int(slug.split('-')[-1]) + 1)
+                except:
+                    self.slug = slug + '-1'
+            else:
+                self.slug += '-1'
+
+        super().save(*args, **kwargs)
+
+
+class Project(Model):
+    title = CharField(max_length=255)
+    description = TextField()
+    category = ForeignKey(Category, CASCADE, null=True)
+    client = CharField(max_length=255)
+    date = DateTimeField(auto_now=True)
+    url = URLField()
+    slug = SlugField(max_length=255, unique=True)
+
+
+    def __str__(self):
+        return self.title
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        while Category.objects.filter(slug=self.slug).exists():
+            slug = Category.objects.filter(slug=self.slug).first().slug
+            if '-' in slug:
+                try:
+                    if slug.split('-')[-1] in self.title:
+                        self.slug += '-1'
+                    else:
+                        self.slug = '-'.join(slug.split('-')[:-1]) + '-' + str(int(slug.split('-')[-1]) + 1)
+                except:
+                    self.slug = slug + '-1'
+            else:
+                self.slug += '-1'
+
+        super().save(*args, **kwargs)
+
+
+class Image(Model):
+    image = ResizedImageField(upload_to='projects/')
+    project = ManyToManyField(Project)

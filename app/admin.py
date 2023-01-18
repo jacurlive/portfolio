@@ -37,7 +37,7 @@ class CategoryAdmin(ModelAdmin):
 
 @admin.register(Project)
 class ProjectAdmin(ModelAdmin):
-    fields = ('title', 'description', 'category', 'client', 'url')
+    fields = ('title', 'description', 'category', 'client', 'pic', 'url')
     list_display = ('title', 'category', 'client', 'url')
 
 

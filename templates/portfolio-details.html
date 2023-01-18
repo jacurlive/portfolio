@@ -19,7 +19,7 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <h2>Portfoio Details</h2>
                     <ol>
-                        <li><a href="index.html">Home</a></li>
+                        <li><a href="{% url 'main' %}">Home</a></li>
                         <li>Portfoio Details</li>
                     </ol>
                 </div>
@@ -37,17 +37,11 @@
                         <div class="portfolio-details-slider swiper">
                             <div class="swiper-wrapper align-items-center">
 
-                                <div class="swiper-slide">
-                                    <img src="{% static 'assets/img/portfolio/portfolio-details-1.jpg' %}" alt="">
-                                </div>
-
-                                <div class="swiper-slide">
-                                    <img src="{% static 'assets/img/portfolio/portfolio-details-2.jpg' %}" alt="">
-                                </div>
-
-                                <div class="swiper-slide">
-                                    <img src="{% static 'assets/img/portfolio/portfolio-details-3.jpg' %}" alt="">
-                                </div>
+                                {% for img in project.image_set.all %}
+                                    <div class="swiper-slide">
+                                        <img src="{{ img.image.url }}" alt="">
+                                    </div>
+                                {% endfor %}
 
                             </div>
                             <div class="swiper-pagination"></div>
@@ -58,20 +52,15 @@
                         <div class="portfolio-info">
                             <h3>Project information</h3>
                             <ul>
-                                <li><strong>Category</strong>: Web design</li>
-                                <li><strong>Client</strong>: ASU Company</li>
-                                <li><strong>Project date</strong>: 01 March, 2020</li>
-                                <li><strong>Project URL</strong>: <a href="#">www.example.com</a></li>
+                                <li><strong>Category</strong>: {{ project.category }}</li>
+                                <li><strong>Client</strong>: {{ project.client }}</li>
+                                <li><strong>Project date</strong>: {{ project.date }}</li>
+                                <li><strong>Project URL</strong>: <a href="{{ project.url }}">{{ project.url }}</a></li>
                             </ul>
                         </div>
                         <div class="portfolio-description">
-                            <h2>This is an example of portfolio detail</h2>
-                            <p>
-                                Autem ipsum nam porro corporis rerum. Quis eos dolorem eos itaque inventore commodi
-                                labore quia quia. Exercitationem repudiandae officiis neque suscipit non officia eaque
-                                itaque enim. Voluptatem officia accusantium nesciunt est omnis tempora consectetur
-                                dignissimos. Sequi nulla at esse enim cum deserunt eius.
-                            </p>
+                            <h2>{{ project.title }}</h2>
+                            <p>{{ project.description|striptags }}</p>
                         </div>
                     </div>
 
@@ -84,3 +73,8 @@
 
     </body>
 {% endblock %}
+
+{#Lorem ipsum dolor sit amet, consectetur adipisicing elit. #}
+{#Aspernatur aut distinctio eos facere, inventore laboriosam laudantium, #}
+{#minus molestiae obcaecati quidem sint sunt tempora ullam! #}
+{#Dignissimos esse exercitationem fugit odit sunt?#}

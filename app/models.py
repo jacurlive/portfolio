@@ -1,3 +1,4 @@
+from ckeditor.fields import RichTextField
 from django.db.models import Model, ImageField, CharField, IntegerField, BooleanField, TextField, URLField, EmailField, \
     SlugField, ForeignKey, CASCADE, DateTimeField, ManyToManyField
 from django.utils.text import slugify
@@ -69,13 +70,13 @@ class Category(Model):
 
 class Project(Model):
     title = CharField(max_length=255)
-    description = TextField()
+    description = RichTextField()
     category = ForeignKey(Category, CASCADE, null=True)
     client = CharField(max_length=255)
+    pic = ResizedImageField(upload_to='projects/product')
     date = DateTimeField(auto_now=True)
     url = URLField()
     slug = SlugField(max_length=255, unique=True)
-
 
     def __str__(self):
         return self.title
@@ -101,3 +102,10 @@ class Project(Model):
 class Image(Model):
     image = ResizedImageField(upload_to='projects/')
     project = ManyToManyField(Project)
+
+
+class Message(Model):
+    name = CharField(max_length=255)
+    email = EmailField(max_length=300)
+    subject = CharField(max_length=350)
+    message = TextField()

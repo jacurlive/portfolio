@@ -14,10 +14,13 @@ SECRET_KEY = 'django-insecure-0ej5^(_=+aj#*rwwlad(xb3l3l#-w$f8c-2mk*u94brjs-6hy%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
 
 # Application definition
+
+
+CKEDITOR_UPLOAD_PATH = 'posts/'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -26,7 +29,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app'
+    'app',
+    'ckeditor',
+    'ckeditor_uploader'
 ]
 
 MIDDLEWARE = [

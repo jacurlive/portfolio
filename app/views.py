@@ -10,7 +10,7 @@ class MainView(FormView, ListView):
     template_name = 'index.html'
     form_class = ContactForm
     queryset = About.objects.all()
-    success_url = reverse_lazy('inner')
+    success_url = reverse_lazy('success')
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(object_list=object_list, **kwargs)
@@ -42,3 +42,6 @@ class CustomDetailView(DetailView):
     #     context = super().get_context_data(object_list=object_list, **kwargs)
     #     context['']
 
+
+class CustomSuccessView(TemplateView):
+    template_name = 'success_contact.html'

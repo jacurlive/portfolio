@@ -319,9 +319,11 @@
                                 <img src="{{ project.pic.url }}" class="img-fluid" alt="">
                                 <div class="portfolio-links">
                                     <a href="{{ project.pic.url }}"
-                                       data-gallery="portfolioGallery" class="portfolio-lightbox" title="{{ project.title }}"><i
+                                       data-gallery="portfolioGallery" class="portfolio-lightbox"
+                                       title="{{ project.title }}"><i
                                             class="bx bx-plus"></i></a>
-                                    <a href="{% url 'detail' project.slug %}" title="More Details"><i class="bx bx-link"></i></a>
+                                    <a href="{% url 'detail' project.slug %}" title="More Details"><i
+                                            class="bx bx-link"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -544,7 +546,10 @@
                                 <textarea class="form-control" name="message" rows="10" required></textarea><br>
                             </div>
                             <div class="text-center">
-                                <button type="submit">Send Message</button>
+                                <button type="submit"
+                                        style="background: #149ddd; border: 0; padding: 10px 24px; color: #fff; transition: 0.4s; border-radius: 4px;">
+                                    Send Message
+                                </button>
                             </div>
                         </form>
                     </div>

@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin
 
-from app.models import About, Skill, Sumary, Education, Category, Project, Image
+from app.models import About, Skill, Sumary, Education, Category, Project, Image, Message
 
 
 @admin.register(About)
@@ -44,3 +44,13 @@ class ProjectAdmin(ModelAdmin):
 @admin.register(Image)
 class ImageAdmin(ModelAdmin):
     fields = ('image', 'project')
+
+
+@admin.register(Message)
+class MessageAdmin(ModelAdmin):
+    list_display = ('id', 'name', 'email', 'subject', 'message', 'answered')
+    list_display_links = ('id', 'name', 'email')
+    search_fields = ('name', 'email', 'subject', 'message')
+    list_editable = ('answered',)
+    list_filter = ('answered', 'date')
+    readonly_fields = ('name', 'email', 'subject', 'message')

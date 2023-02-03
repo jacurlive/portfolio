@@ -2,6 +2,8 @@ from ckeditor.fields import RichTextField
 from django.db.models import Model, ImageField, CharField, IntegerField, BooleanField, TextField, URLField, EmailField, \
     SlugField, ForeignKey, CASCADE, DateTimeField, ManyToManyField
 from django.urls import reverse
+from django.utils.html import escape
+from django.utils.safestring import mark_safe
 from django.utils.text import slugify
 from django_resized import ResizedImageField
 
@@ -85,6 +87,11 @@ class Project(Model):
     def get_absolute_url(self):
         return reverse('detail', kwargs={'slug': self.slug})
 
+    def image_tag(self):
+        return mark_safe('<img src="/media/%s" width="70" height="50" />' % (self.pic))
+
+    image_tag.short_description = 'Image'
+
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
         while Category.objects.filter(slug=self.slug).exists():
@@ -115,4 +122,3 @@ class Message(Model):
     message = TextField()
     date = DateTimeField(auto_now_add=True)
     answered = BooleanField(default=False)
-

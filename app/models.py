@@ -2,7 +2,6 @@ from ckeditor.fields import RichTextField
 from django.db.models import Model, ImageField, CharField, IntegerField, BooleanField, TextField, URLField, EmailField, \
     SlugField, ForeignKey, CASCADE, DateTimeField, ManyToManyField
 from django.urls import reverse
-from django.utils.html import escape
 from django.utils.safestring import mark_safe
 from django.utils.text import slugify
 from django_resized import ResizedImageField

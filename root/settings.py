@@ -23,6 +23,7 @@ ALLOWED_HOSTS = []
 CKEDITOR_UPLOAD_PATH = 'posts/'
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

@@ -49,8 +49,8 @@ class ImageAdmin(ModelAdmin):
 
 @admin.register(Message)
 class MessageAdmin(ModelAdmin):
-    list_display = ('id', 'name', 'email', 'subject', 'message', 'answered')
-    list_display_links = ('id', 'name', 'email')
+    list_display = ('id', 'name', 'email', 'subject', 'answered')
+    list_display_links = ('id', 'name', 'email', 'subject')
     search_fields = ('name', 'email', 'subject', 'message')
     list_editable = ('answered',)
     list_filter = ('answered', 'date')
